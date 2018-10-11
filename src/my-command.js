@@ -14,10 +14,30 @@ export function onShutdown () {
 }
 
 export function onSupplyData (context) {
-  let dataKey = context.data.key
+  console.log("C O N T E X T:")
   const items = util.toArray(context.data.items).map(sketch.fromNative)
-  items.forEach((item, index) => {
-    let data = Math.random().toString()
-    DataSupplier.supplyDataAtIndex(dataKey, data, index)
+  const myLength = items.length;
+  getNames(context, myLength, "female", "austria");
+}
+
+export function getNames(myContext, myAmount, myGender, myRegion) {
+  const url = "https://uinames.com/api/?amount=" + myAmount + "&gender=" + myGender + "&region=" + myRegion;
+  let myNames;
+  let dataKey = myContext.data.key
+  const items = util.toArray(myContext.data.items).map(sketch.fromNative)
+
+  fetch(url)
+    .then((resp) => resp.json()) // Transform the data into json
+    .then(function(data) {
+      let index = 0;
+      return data.map(function(userName) {
+        console.log(userName);
+        let name = (userName.name + " " + userName.surname)
+        DataSupplier.supplyDataAtIndex(dataKey, name, index)
+        index++
+      })      
   })
+  .catch(function(error) {
+    console.log(error);
+  });
 }
