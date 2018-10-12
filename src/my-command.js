@@ -4,8 +4,8 @@ const util = require('util')
 
 export function onStartup () {
   // To register the plugin, uncomment the relevant type:
-  DataSupplier.registerDataSupplier('public.text', 'datademo', 'SupplyData')
-  // DataSupplier.registerDataSupplier('public.image', 'datademo', 'SupplyData')
+  DataSupplier.registerDataSupplier('public.text', 'female_names_AT', 'SupplyData')
+  // DataSupplier.registerDataSupplier('public.image', 'female_names_AT', 'SupplyData')
 }
 
 export function onShutdown () {
